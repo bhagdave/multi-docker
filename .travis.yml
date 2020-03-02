@@ -13,6 +13,11 @@ after_success:
   - docker build -t bhagdave/multi-nginx ./nginx
   - docker build -t bhagdave/multi-server ./server
   - docker build -t bhagdave/multi-worker ./worker
+  - echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push bhagdave/multi-client
+  - docker push bhagdave/multi-nginx
+  - docker push bhagdave/multi-server
+  - docker push bhagdave/multi-worker
 
 
 
