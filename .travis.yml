@@ -1,0 +1,18 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t bhagdave/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run bhagdave/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t bhagdave/multi-client ./client
+  - docker build -t bhagdave/multi-nginx ./nginx
+  - docker build -t bhagdave/multi-server ./server
+  - docker build -t bhagdave/multi-worker ./worker
+
+
+
